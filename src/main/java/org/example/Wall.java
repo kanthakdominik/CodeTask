@@ -1,28 +1,42 @@
 package org.example;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 public class Wall implements Structure {
     private final List<Block> blocks;
 
     public Wall() {
-        blocks = buildWall();
+        blocks = new ArrayList<>();
     }
 
     @Override
     public Optional<Block> findBlockByColor(String color) {
+        if (color == null) {
+            throw new IllegalArgumentException("Color is null!");
+        }
+
         return blocks.stream()
-                .filter(block -> block.getColor().equals(color))
-                .findAny();
+                .map(block -> block.checkColor(color))
+                .filter(Optional::isPresent)
+                .map(Optional::get)
+                .findFirst();
     }
 
     @Override
     public List<Block> findBlocksByMaterial(String material) {
+        if (material == null) {
+            throw new IllegalArgumentException("Material is null!");
+        }
+
         return blocks.stream()
-                .filter(block -> block.getMaterial().equals(material))
-                .collect(Collectors.toList());
+                .map(block -> block.checkMaterial(material))
+                .toList()
+                .stream()
+                .flatMap(List::stream)
+                .toList();
     }
 
     @Override
@@ -32,23 +46,7 @@ public class Wall implements Structure {
                 .sum();
     }
 
-    private List<Block> buildWall() {
-        Block concreteBlock = new RealBlock("gray", "concrete");
-        Block gypsumBlock = new RealBlock("gray", "gypsum");
-        Block stoneBlock = new RealBlock("gray", "stone");
-        Block pineBlock = new RealBlock("bronze", "wood");
-        Block oakBlock = new RealBlock("bronze", "wood");
-        Block brickBlock = new RealBlock("red", "brick");
-
-        CompositeBlock compositeBlock = new RealCompositeBlock("gray", "multi-material", List.of(concreteBlock, gypsumBlock, stoneBlock));
-        CompositeBlock woodenBlock = new RealCompositeBlock("bronze", "wood", List.of(pineBlock, oakBlock));
-        CompositeBlock woodenBlock2 = new RealCompositeBlock("bronze", "wood", List.of());
-
-        CompositeBlock plasticBlock = new RealCompositeBlock("multicolour", "plastic",
-                List.of(new RealBlock("yellow", "plastic"), new RealCompositeBlock("multicolour", "plastic",
-                        List.of(new RealBlock("black", "plastic"), new RealCompositeBlock("multicolour", "plastic",
-                                List.of(new RealBlock("white", "plastic"), new RealBlock("blue", "plastic")))))));
-
-        return List.of(concreteBlock, gypsumBlock, stoneBlock, pineBlock, oakBlock, brickBlock, compositeBlock, woodenBlock, woodenBlock2, plasticBlock);
+    public void addBlocks(Block... blocks) {
+        this.blocks.addAll(Arrays.asList(blocks));
     }
 }

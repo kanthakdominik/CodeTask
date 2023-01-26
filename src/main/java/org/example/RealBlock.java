@@ -3,6 +3,10 @@ package org.example;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
 @Getter
 @RequiredArgsConstructor
 public class RealBlock implements Block {
@@ -13,5 +17,15 @@ public class RealBlock implements Block {
     @Override
     public Integer getCount() {
         return COUNTER_VALUE;
+    }
+
+    @Override
+    public Optional<Block> checkColor(String color) {
+        return getColor().equals(color) ? Optional.of(this) : Optional.empty();
+    }
+
+    @Override
+    public List<Block> checkMaterial(String material) {
+        return getMaterial().equals(material) ? List.of(this) : Collections.emptyList();
     }
 }
