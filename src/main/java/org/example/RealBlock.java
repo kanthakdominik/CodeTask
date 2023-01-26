@@ -20,12 +20,12 @@ public class RealBlock implements Block {
     }
 
     @Override
-    public Optional<Block> checkColor(String color) {
+    public Optional<Block> getBlockByColor(String color) {
         return getColor().equals(color) ? Optional.of(this) : Optional.empty();
     }
 
     @Override
-    public List<Block> checkMaterial(String material) {
+    public List<Block> getBlocksByMaterial(String material) {
         return getMaterial().equals(material) ? List.of(this) : Collections.emptyList();
     }
 }

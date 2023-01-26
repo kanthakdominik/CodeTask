@@ -19,7 +19,7 @@ public class Wall implements Structure {
         }
 
         return blocks.stream()
-                .map(block -> block.checkColor(color))
+                .map(block -> block.getBlockByColor(color))
                 .filter(Optional::isPresent)
                 .map(Optional::get)
                 .findFirst();
@@ -32,7 +32,7 @@ public class Wall implements Structure {
         }
 
         return blocks.stream()
-                .map(block -> block.checkMaterial(material))
+                .map(block -> block.getBlocksByMaterial(material))
                 .toList()
                 .stream()
                 .flatMap(List::stream)

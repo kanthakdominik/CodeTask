@@ -25,12 +25,12 @@ public class RealCompositeBlock extends RealBlock implements CompositeBlock {
     }
 
     @Override
-    public Optional<Block> checkColor(String color) {
+    public Optional<Block> getBlockByColor(String color) {
         if (getColor().equals(color)) {
             return Optional.of(this);
         } else {
             return blocks.stream()
-                    .map(block -> block.checkColor(color))
+                    .map(block -> block.getBlockByColor(color))
                     .filter(Optional::isPresent)
                     .map(Optional::get)
                     .findFirst();
@@ -38,9 +38,9 @@ public class RealCompositeBlock extends RealBlock implements CompositeBlock {
     }
 
     @Override
-    public List<Block> checkMaterial(String material) {
+    public List<Block> getBlocksByMaterial(String material) {
         List<Block> searchedBlocks = new ArrayList<>(blocks.stream()
-                .map(block -> block.checkMaterial(material))
+                .map(block -> block.getBlocksByMaterial(material))
                 .toList()
                 .stream()
                 .flatMap(List::stream)

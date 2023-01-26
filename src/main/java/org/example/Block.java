@@ -10,9 +10,18 @@ public interface Block {
 
     String getMaterial();
 
+    /**
+     * Returns Block count value
+     */
     Integer getCount();
 
-    Optional<Block> checkColor(String color);
+    /**
+     * Returns Block by specified color
+     */
+    Optional<Block> getBlockByColor(String color);
 
-    List<Block> checkMaterial(String material);
+    /**
+     * Returns list of Blocks by specified material
+     */
+    List<Block> getBlocksByMaterial(String material);
 }

@@ -4,6 +4,7 @@ import org.example.RealBlock;
 import org.example.RealCompositeBlock;
 import org.example.Wall;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -56,108 +57,108 @@ public class WallTest {
 
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnCorrectCountValue() {
         assertEquals(17, wall.count());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnZeroCountValue() {
         assertEquals(0, emptyWall.count());
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnAllBrickBlock() {
         assertThat(wall.findBlocksByMaterial("brick"), hasItems(brickBlock));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnAllConcreteBlock() {
         assertThat(wall.findBlocksByMaterial("concrete"), hasItems(concreteBlock));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnAllGypsumBlock() {
         assertThat(wall.findBlocksByMaterial("gypsum"), hasItems(gypsumBlock));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnAllStoneBlock() {
         assertThat(wall.findBlocksByMaterial("stone"), hasItems(stoneBlock));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnAllMultiMaterialBlock() {
         assertThat(wall.findBlocksByMaterial("multi-material"), hasItems(compositeBlock));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnAllWoodBlock() {
         assertThat(wall.findBlocksByMaterial("wood"), hasItems(pineBlock, oakBlock, compositeWoodenBlock, compositeWoodenBlock2));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnAllPlasticBlock() {
         assertThat(wall.findBlocksByMaterial("plastic"), hasItems(plasticBlock, plasticBlock2, plasticBlock3, plasticBlock4,
                 compositePlasticBlock, compositePlasticBlock2, compositePlasticBlock3, compositePlasticBlock4));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnEmptyCollectionWhenMaterialIsUnknown() {
         assertThat(wall.findBlocksByMaterial("unknown"), is(empty()));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnEmptyOptionalWhenColorIsUnknown() {
         assertThat(wall.findBlockByColor("unknown"), is(Optional.empty()));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldThrowExceptionWhenMaterialIsNull() {
         assertThrows(IllegalArgumentException.class, () -> wall.findBlocksByMaterial(null));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldThrowExceptionWhenColorIsNull() {
         assertThrows(IllegalArgumentException.class, () -> wall.findBlockByColor(null));
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnRedBlock() {
         testColor("red", brickBlock);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnYellowBlock() {
         testColor("yellow", plasticBlock);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnBlackBlock() {
         testColor("black", plasticBlock2);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnBlueBlock() {
         testColor("blue", plasticBlock3);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnWhiteBlock() {
         testColor("white", plasticBlock4);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnGrayBlock() {
         testColor("gray", compositeBlock, concreteBlock, gypsumBlock, stoneBlock);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnMultiColourBlock() {
         testColor("multicolour", compositePlasticBlock, compositePlasticBlock2, compositePlasticBlock3, compositePlasticBlock4);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void shouldReturnBronzeBlock() {
         testColor("bronze", oakBlock, pineBlock, compositeWoodenBlock, compositeWoodenBlock2);
     }
